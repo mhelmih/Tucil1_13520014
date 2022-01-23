@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "board.c"
-#include "patternList.c"
+#include "../header/board.h"
+#include "../header/patternList.h"
 
-
-int readFile(char *filename, board *brd, patternList *ptl) {
+int loadFile(char *filename, board *brd, patternList *ptl) {
     char path[500] = "test/";
     strcat(path, filename);
     FILE *fp = fopen(path, "r");
@@ -24,8 +23,8 @@ int readFile(char *filename, board *brd, patternList *ptl) {
     rewind(fp);
 
     readBoardBufferFromFile(fp, brd);
-    printBoard(*brd);
+    printf("Board %d x %d loaded successfully.\n", (*brd).row, (*brd).col);
 
     readPatternListBufferFromFile(fp, ptl);
-    printPatternList(*ptl);
+    printf("%d Patterns loaded successfully.\n", (*ptl).count);
 }

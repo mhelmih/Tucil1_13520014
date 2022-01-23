@@ -20,12 +20,20 @@ void readPatternListDimensionFromFile(FILE *fp, patternList *ptl) {
             charCount++;
         }
     }
-    printf("patternCount: %d\n", (*ptl).count);
-    printf("maxPatternSize: %d (udah sama \\n)\n", (*ptl).maxLength);
+    // printf("patternCount: %d\n", (*ptl).count);
+    // printf("maxPatternSize: %d (udah sama \\n)\n", (*ptl).maxLength);
 
     (*ptl).list = (pattern *) malloc ((*ptl).count * sizeof(pattern));
-    for (int i = 0; i < (*ptl).count; i++) {
-        (*ptl).list[i].buffer = (char *) malloc ((*ptl).maxLength * sizeof(char));
+    if ((*ptl).list != NULL) {
+        for (int i = 0; i < (*ptl).count; i++) {
+            (*ptl).list[i].buffer = (char *) malloc ((*ptl).maxLength * sizeof(char));
+            if ((*ptl).list[i].buffer == NULL) {
+                printf("Gagal alokasi pattern list.\n");
+                break;
+            }
+        }
+    } else {
+        printf("Gagal alokasi pattern list.\n");
     }
 }
 
@@ -37,23 +45,24 @@ void readPatternListBufferFromFile(FILE *fp, patternList *ptl) {
         (*ptl).list[i].buffer[j] = tempchar;
         j++;
         if (tempchar == '\n') {
+            (*ptl).list[i].buffer[j-1] = '\0';
             (*ptl).list[i].length = j - 1;
             i++;
             j = 0;
         }
     } 
-    (*ptl).list[i].buffer[j] = '\n';
-    (*ptl).list[i].length = j - 1;
+    (*ptl).list[i].buffer[j] = '\0';
+    (*ptl).list[i].length = j;
 }
 
 void printPatternList(patternList ptl) {
     for (int i = 0; i < ptl.count; i++) {
-        for (int j = 0; j < ptl.maxLength; j++) {
-            printf("%c", ptl.list[i].buffer[j]);
-            if (ptl.list[i].buffer[j] == '\n') {
-                printf("length: %d\n", ptl.list[i].length);
-                break;
-            }
-        }
+        printf("%s\n", ptl.list[i].buffer);
+    }
+}
+
+void printPattern(pattern ptn) {
+    for (int i = 0; i < ptn.length; i++) {
+        printf("%c", ptn.buffer[i]);
     }
 }

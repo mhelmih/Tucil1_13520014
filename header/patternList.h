@@ -20,5 +20,6 @@ void createPatternList(patternList *ptl);
 void readPatternListDimensionFromFile(FILE *fp, patternList *ptl);
 void readPatternListBufferFromFile(FILE *fp, patternList *ptl);
 void printPatternList(patternList ptl);
+void printPattern(pattern ptn);
 
 #endif
