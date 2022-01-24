@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "../header/patternList.h"
 
 void createPatternList(patternList *ptl) {
@@ -6,7 +5,7 @@ void createPatternList(patternList *ptl) {
     (*ptl).count = 1;
 }
 
-void readPatternListDimensionFromFile(FILE *fp, patternList *ptl) {
+void readPatternListDimensionFromFile(FILE *fp, patternList *ptl, boolean *isSuccess) {
     char tempchar;
     int charCount;
 
@@ -31,11 +30,14 @@ void readPatternListDimensionFromFile(FILE *fp, patternList *ptl) {
             (*ptl).list[i].buffer = (char *) malloc ((*ptl).maxLength * sizeof(char));
             if ((*ptl).list[i].buffer == NULL) {
                 printf("List of pattern allocation failed.\n");
+                *isSuccess = false;
                 break;
             }
         }
+        *isSuccess = true;
     } else {
         printf("List of pattern allocation failed.\n");
+        *isSuccess = false;
     }
 }
 
@@ -56,6 +58,8 @@ void readPatternListBufferFromFile(FILE *fp, patternList *ptl) {
     } 
     (*ptl).list[i].buffer[j] = '\0';
     (*ptl).list[i].length = j;
+
+    printf("%d Pattern(s) loaded successfully.\n", (*ptl).count);
 }
 
 void printPatternList(patternList ptl) {

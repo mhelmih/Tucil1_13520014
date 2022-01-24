@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "boolean.h"
 
 #define DR  "\x1b[31m"  // DARK RED
 #define DG  "\x1b[32m"  // DARK GREEN
@@ -35,7 +36,7 @@ typedef struct
 } board;
 
 void createBoard(board *brd);
-void readBoardDimensionFromFile(FILE *fp, board *brd);
+void readBoardDimensionFromFile(FILE *fp, board *brd, boolean *isSuccess);
 void readBoardBufferFromFile(FILE *fp, board *brd);
 void printBoard(board brd);
 

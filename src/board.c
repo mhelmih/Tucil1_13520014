@@ -9,7 +9,7 @@ void createBoard(board *brd) {
     (*brd).row = 1;
 }
 
-void readBoardDimensionFromFile(FILE *fp, board *brd) {
+void readBoardDimensionFromFile(FILE *fp, board *brd, boolean *isSuccess) {
     char tempchar;
     
     /* read columns */
@@ -33,6 +33,7 @@ void readBoardDimensionFromFile(FILE *fp, board *brd) {
             (*brd).buffer[i] = (coloredChar *) malloc ((*brd).col * sizeof(coloredChar));
             if ((*brd).buffer[i] == NULL) {
                 printf("Board allocation failed.\n");
+                *isSuccess = false;
                 break;
             }
         }
@@ -43,8 +44,10 @@ void readBoardDimensionFromFile(FILE *fp, board *brd) {
                 strcpy((*brd).buffer[i][j].color, "WH\0");
             }
         }
+        *isSuccess = true;
     } else {
         printf("Board allocation failed.\n");
+        *isSuccess = false;
     }
 }
 
@@ -60,6 +63,8 @@ void readBoardBufferFromFile(FILE *fp, board *brd) {
     /* to skip the extra 2 newlines */
     fscanf(fp, "%c", &tempchar);
     fscanf(fp, "%c", &tempchar);
+
+    printf("Board %d x %d loaded successfully.\n", (*brd).row, (*brd).col);
 }
 
 void printBoard(board brd) {

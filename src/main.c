@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "src/board.c"
-#include "src/patternList.c"
-#include "src/fileloader.c"
-#include "src/solver.c"
+#include "board.c"
+#include "patternList.c"
+#include "fileloader.c"
+#include "solver.c"
 
 #define BILLION  1000000000.0
 

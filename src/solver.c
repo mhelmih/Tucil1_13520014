@@ -25,33 +25,34 @@ void search(board brd, pattern ptn, int *count, int row, int col, boolean *found
     int vertical[]   = { 0,  0, 1, -1, 1, -1,  1, -1 };
     
     *found = false;
-    if (brd.buffer[row][col].symbol != ptn.buffer[0]) {
+    if (brd.buffer[row][col].symbol == ptn.buffer[0]) {
         *count += 1;
-    } else {
         i = 0;
         while (i < 8 && !*found) {
             rowDirection = row + vertical[i];
             colDirection = col + horizontal[i];
             j = 1;
             while (j < ptn.length && 0 <= rowDirection && rowDirection < brd.row && 0 <= colDirection && colDirection < brd.col) {
-                if (brd.buffer[rowDirection][colDirection].symbol != ptn.buffer[j]) {
-                    *count += 1;
-                    break;
-                } else {
+                if (ptn.buffer[j] == brd.buffer[rowDirection][colDirection].symbol) {
                     *count += 1;
                     rowDirection += vertical[i];
                     colDirection += horizontal[i];
                     j++;
+                } else {
+                    *count += 1;
+                    break;
                 }
             }
             
             if (j == ptn.length) {
                 *found = true;
                 addColor(&brd, ptn.length, row, col, color, i);
+            } else {
+                i++;
             }
-
-            i++;
         }
+    } else {
+        *count += 1;
     }
 }
 
