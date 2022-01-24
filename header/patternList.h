@@ -1,3 +1,10 @@
+/**
+ * File: patternList.h
+ * 
+ * ADT Pattern List
+ * Menampung data pola
+ */
+
 #ifndef PATTERNLIST_H
 #define PATTERNLIST_H
 

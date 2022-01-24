@@ -1,4 +1,8 @@
-/* Definisi type boolean */
+/**
+ * File: boolean.h
+ * 
+ * Mendefinisikan true dan false
+*/
 
 #ifndef _BOOLEAN_h
 #define _BOOLEAN_h

@@ -1,3 +1,11 @@
+/**
+ * File: fileloader.c
+ * 
+ * Berisi prosedur untuk membaca file
+ * kemudian menampung isinya ke dalam
+ * ADT yang sudah dibuat
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

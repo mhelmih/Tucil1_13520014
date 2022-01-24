@@ -1,5 +1,11 @@
-#include "../header/board.h"
+/**
+ * File: board.c
+ * 
+ * ADT Board
+ * Menampung data papan permainan
+ */
 
+#include "../header/board.h"
 
 /* array of colors */
 char *colors[] = { "DR\0", "DG\0", "DY\0", "DB\0", "DM\0", "DC\0", "BR\0", "BG\0", "BY\0", "BB\0", "BM\0", "BC\0" };
@@ -19,13 +25,11 @@ void readBoardDimensionFromFile(FILE *fp, board *brd, boolean *isSuccess) {
             (*brd).col++;
         }
     }
-
     /* read rows */
     char str[500];
     while (*fgets(str, sizeof(str), fp) != '\n') {
         (*brd).row++;
     }
-
     /* allocate buffer */
     (*brd).buffer = (coloredChar **) malloc ((*brd).row * sizeof(coloredChar *));
     if ((*brd).buffer != NULL) {
@@ -37,7 +41,6 @@ void readBoardDimensionFromFile(FILE *fp, board *brd, boolean *isSuccess) {
                 break;
             }
         }
-
         /* assign all symbols to white */
         for (int i = 0; i < (*brd).row; i++) {
             for (int j = 0; j < (*brd).col; j++) {
@@ -59,7 +62,6 @@ void readBoardBufferFromFile(FILE *fp, board *brd) {
             fscanf(fp, " %c", &brd->buffer[i][j]);
         }
     }
-
     /* to skip the extra 2 newlines */
     fscanf(fp, "%c", &tempchar);
     fscanf(fp, "%c", &tempchar);

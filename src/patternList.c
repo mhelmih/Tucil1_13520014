@@ -1,3 +1,10 @@
+/**
+ * File: patternList.c
+ * 
+ * ADT Pattern List
+ * Menampung data pola
+ */
+
 #include "../header/patternList.h"
 
 void createPatternList(patternList *ptl) {
@@ -22,7 +29,6 @@ void readPatternListDimensionFromFile(FILE *fp, patternList *ptl, boolean *isSuc
             charCount++;
         }
     }
-
     /* allocate the buffer */
     (*ptl).list = (pattern *) malloc ((*ptl).count * sizeof(pattern));
     if ((*ptl).list != NULL) {
@@ -58,7 +64,6 @@ void readPatternListBufferFromFile(FILE *fp, patternList *ptl) {
     } 
     (*ptl).list[i].buffer[j] = '\0';
     (*ptl).list[i].length = j;
-
     printf("%d Pattern(s) loaded successfully.\n", (*ptl).count);
 }
 

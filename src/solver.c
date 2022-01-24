@@ -1,3 +1,10 @@
+/**
+ * File: solver.c
+ * 
+ * Berisi prosedur untuk menyelesaikan
+ * persoalan dengan algoritma brute force
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "../header/boolean.h"

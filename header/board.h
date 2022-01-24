@@ -1,3 +1,10 @@
+/**
+ * File: board.h
+ * 
+ * ADT Board
+ * Menampung data papan permainan
+ */
+
 #ifndef BOARD_H
 #define BOARD_H
 
