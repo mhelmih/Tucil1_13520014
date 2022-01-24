@@ -19,6 +19,8 @@
 #define BC  "\x1b[96m"  // BRIGHT CYAN
 #define RE  "\x1b[0m"   // RESET
 
+extern char *colors[];
+
 typedef struct
 {
     char symbol;

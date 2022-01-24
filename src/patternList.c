@@ -8,7 +8,10 @@ void createPatternList(patternList *ptl) {
 
 void readPatternListDimensionFromFile(FILE *fp, patternList *ptl) {
     char tempchar;
-    int charCount = 0;
+    int charCount;
+
+    /* count the number of pattern and the max length */
+    charCount = 0;
     while ((tempchar = fgetc(fp)) != EOF) {
         if (tempchar == '\n' && charCount > (*ptl).maxLength) {
             (*ptl).maxLength = charCount;
@@ -20,20 +23,19 @@ void readPatternListDimensionFromFile(FILE *fp, patternList *ptl) {
             charCount++;
         }
     }
-    // printf("patternCount: %d\n", (*ptl).count);
-    // printf("maxPatternSize: %d (udah sama \\n)\n", (*ptl).maxLength);
 
+    /* allocate the buffer */
     (*ptl).list = (pattern *) malloc ((*ptl).count * sizeof(pattern));
     if ((*ptl).list != NULL) {
         for (int i = 0; i < (*ptl).count; i++) {
             (*ptl).list[i].buffer = (char *) malloc ((*ptl).maxLength * sizeof(char));
             if ((*ptl).list[i].buffer == NULL) {
-                printf("Gagal alokasi pattern list.\n");
+                printf("List of pattern allocation failed.\n");
                 break;
             }
         }
     } else {
-        printf("Gagal alokasi pattern list.\n");
+        printf("List of pattern allocation failed.\n");
     }
 }
 
@@ -43,12 +45,13 @@ void readPatternListBufferFromFile(FILE *fp, patternList *ptl) {
     int j = 0;
     while ((tempchar = fgetc(fp)) != EOF) {
         (*ptl).list[i].buffer[j] = tempchar;
-        j++;
         if (tempchar == '\n') {
-            (*ptl).list[i].buffer[j-1] = '\0';
-            (*ptl).list[i].length = j - 1;
+            (*ptl).list[i].buffer[j] = '\0';
+            (*ptl).list[i].length = j;
             i++;
             j = 0;
+        } else {
+            j++;
         }
     } 
     (*ptl).list[i].buffer[j] = '\0';

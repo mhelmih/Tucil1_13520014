@@ -11,7 +11,10 @@ int loadFile(char *filename, board *brd, patternList *ptl) {
 
     if (fp == NULL) {
         printf("Error. File Not Found.\n");
+        printf("==================================================\n");
         return 0;
+    } else {
+        printf("%s opened.\n", filename);
     }
 
     createBoard(brd);
@@ -26,5 +29,8 @@ int loadFile(char *filename, board *brd, patternList *ptl) {
     printf("Board %d x %d loaded successfully.\n", (*brd).row, (*brd).col);
 
     readPatternListBufferFromFile(fp, ptl);
-    printf("%d Patterns loaded successfully.\n", (*ptl).count);
+    printf("%d Pattern(s) loaded successfully.\n", (*ptl).count);
+
+    fclose(fp);
+    printf("==================================================\n");
 }
