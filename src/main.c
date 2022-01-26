@@ -24,13 +24,15 @@ int main() {
     scanf("%s", filename);
     printf("--------------------------------------------------\n");
     if (loadFile(filename, &brd, &ptl) != 0) {
-        printf("Word Searched: \n");
+        char *header[] = { "No.", "Word Searched", "Status", "Comparison(s)"};
+        printf("%s %-*s %-9s %s\n", header[0], ptl.maxLength, header[1], header[2], header[3]);
+
         count = 0;
         foundCount = 0;
         clock_gettime(CLOCK_REALTIME, &start);
         for (int i = 0; i < ptl.count; i++) {
             printf("%2d. ", i+1);
-            solve(brd, ptl.list[i], &count, i%12, &foundCount);
+            solve(brd, ptl.list[i], &count, i%12, &foundCount, ptl.maxLength);
         }
         clock_gettime(CLOCK_REALTIME, &end);
         double totalTime = (end.tv_nsec - start.tv_nsec)/BILLION;

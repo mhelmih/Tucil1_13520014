@@ -11,10 +11,22 @@
 #include "../header/board.h"
 #include "../header/patternList.h"
 
+int horizontal[] = { 1, -1, 0,  0, 1, -1, -1,  1 };
+int vertical[]   = { 0,  0, 1, -1, 1, -1,  1, -1 };
+/**
+ * Jika i adalah indeks pada array horizontal dan vertikal, maka
+ * i = 0 -> horizontal ke kiri
+ * i = 1 -> horizontal ke kanan
+ * i = 2 -> vertikal ke bawah
+ * i = 3 -> vertikal ke atas
+ * i = 4 -> diagonal ke kanan bawah
+ * i = 5 -> diagonal ke kiri atas
+ * i = 6 -> diagonal ke kiri bawah
+ * i = 7 -> diagonal ke kanan atas
+ */
+
 void addColor(board *brd, int patternLength, int row, int col, int color, int direction) {
     int i, rowDirection, colDirection;
-    int horizontal[] = { 1, -1, 0,  0, 1, -1, -1,  1 };
-    int vertical[]   = { 0,  0, 1, -1, 1, -1,  1, -1 };
 
     rowDirection = row;
     colDirection = col;
@@ -28,8 +40,6 @@ void addColor(board *brd, int patternLength, int row, int col, int color, int di
 
 void search(board brd, pattern ptn, int *count, int row, int col, boolean *found, int color) {
     int i, j, rowDirection, colDirection;
-    int horizontal[] = { 1, -1, 0,  0, 1, -1, -1,  1 };
-    int vertical[]   = { 0,  0, 1, -1, 1, -1,  1, -1 };
     
     *found = false;
     if (brd.buffer[row][col].symbol == ptn.buffer[0]) {
@@ -63,9 +73,9 @@ void search(board brd, pattern ptn, int *count, int row, int col, boolean *found
     }
 }
 
-void solve(board brd, pattern ptn, int *totalCount, int color, int *foundCount) {
+void solve(board brd, pattern ptn, int *totalCount, int color, int *foundCount, int maxLength) {
     boolean found;
-    int i, j, count;
+    int i, j, count, length;
     
     found = false;
     count = 0;
@@ -79,11 +89,13 @@ void solve(board brd, pattern ptn, int *totalCount, int color, int *foundCount) 
         i++;
     }
 
+    char *status[] = { "not found", "found" };
     *totalCount += count;
-    if (found) {
-        printf("%s found. %d Comparison(s).\n", ptn.buffer, count);
-        *foundCount += 1;
+    if (maxLength > 13) {
+        printf("%-*s %-9s", maxLength, ptn.buffer, status[found]);
     } else {
-        printf("%s not found. %d Comparison(s).\n", ptn.buffer, count);
+        printf("%-13s %-9s", ptn.buffer, status[found]);
     }
+    *foundCount += 1;
+    printf(" %13d\n", count);
 } 
